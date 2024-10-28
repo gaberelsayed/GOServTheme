@@ -16,6 +16,8 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 
+import { useCookies } from "react-cookie";
+
 import "./HomeElements.css";
 import Section from "../Section/Section";
 import EditSection from "../EditSection/EditSection";
@@ -51,6 +53,8 @@ const getSections = [
 ];
 
 function HomeElements({ settoggleSidebar }) {
+  const [cookies, setCookie] = useCookies(["user"]);
+
   const [activeEditSection, setactiveEditSection] = useState(null);
 
   const [modalShow, setModalShow] = useState(false);
@@ -82,6 +86,8 @@ function HomeElements({ settoggleSidebar }) {
     try {
       const { data } = await request({
         url: "/api/dashboard/sections/order",
+        withCredentials: true,
+        Authorization: `Bearer ${cookies?.user}`,
         method: "post",
         data: [...sections],
       });
