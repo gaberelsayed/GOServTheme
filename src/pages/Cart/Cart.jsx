@@ -25,7 +25,7 @@ function Cart() {
   //     navigate("/");
   //   }
   // }, [user, navigate]);
-
+  console.log(products);
   const totalAmount = products.reduce(
     (total, product) => total + product.price * product.quantity,
     0
@@ -55,7 +55,6 @@ function Cart() {
   const handleRemove = (id) => {
     dispatch(removeItemFromCart({ id }));
   };
-
   return (
     <>
       <Info />
@@ -106,7 +105,7 @@ function Cart() {
                   <div className="d-flex justify-content-start mt-2">
                     <div className="py-3">
                       <img
-                        src={product.image}
+                        src={`https://goservback.alyoumsa.com/public/storage/${product?.all_photos[0]}`}
                         height={100}
                         width={100}
                         alt={product.title}

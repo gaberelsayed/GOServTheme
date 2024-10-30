@@ -20,6 +20,13 @@ import "./ProductDetails.css";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+const sideImages = [
+  "image-five.11880e87fe2172358c1d.png",
+  "product-five.d2d5089cdc9dc1398bed.png",
+  "phone.dfce5cb4f77af5fe35ec.png",
+  "image-four.ba1b0ca752d3139c2a1f.png",
+];
+
 function ProductDetails() {
   const [ProductDetails, setProductDetails] = useState(null);
   const [ProductColorID, setProductColorID] = useState(null);
@@ -34,6 +41,13 @@ function ProductDetails() {
   const favoriteItems = useSelector((state) => state.favorites.items);
 
   const { id } = useParams();
+
+  const setFirstPhoto = (i) => {
+    setProductDetails((prev) => ({
+      ...prev,
+      firstPhoto: ProductDetails.Photos[i],
+    }));
+  };
 
   useEffect(() => {
     const getProductDetails = async () => {
@@ -153,21 +167,21 @@ function ProductDetails() {
               <Accordion.Header>
                 {" "}
                 <img
-                  style={{ width: "30px", margin: "0 12px" }}
+                  style={{ width: "30px", margin: "0 48px" }}
                   src="/edit.svg"
                   alt=""
                 />
                 تخصيص المنتج{" "}
               </Accordion.Header>
               <Accordion.Body className="details">
-                <div className="images">
+                {/* <div className="images">
                   <h3>صور المنتج</h3>
                   <div className="wrapper flex">
                     {productcolorimages?.map((img, i) => (
                       <img key={i} src={img} />
                     ))}
                   </div>
-                </div>
+                </div> */}
                 <div className="colors">
                   <h3>الألوان المتاحة</h3>
                   <div className="wrapper flex">
@@ -197,7 +211,7 @@ function ProductDetails() {
               <Accordion.Header>
                 {" "}
                 <img
-                  style={{ width: "30px", margin: "0 12px" }}
+                  style={{ width: "30px", margin: "0 48px" }}
                   src="/home.svg"
                   alt=""
                 />{" "}
@@ -217,7 +231,7 @@ function ProductDetails() {
               <Accordion.Header>
                 {" "}
                 <img
-                  style={{ width: "30px", margin: "0 12px" }}
+                  style={{ width: "30px", margin: "0 48px" }}
                   src="/weight.svg"
                   alt=""
                 />{" "}
@@ -277,8 +291,12 @@ function ProductDetails() {
           <div className="wrapper flex">
             <div className="main-img">
               <img
+                // src={
+                //   `/${ProductDetails.firstPhoto}` ||
+                //   "image-two.dd7d3cfc16bf56c43f01.png"
+                // }
                 src={
-                  ProductDetails.firstPhoto ||
+                  `https://goservback.alyoumsa.com/public/storage/${ProductDetails?.firstPhoto}` ||
                   "image-two.dd7d3cfc16bf56c43f01.png"
                 }
                 alt=""
@@ -286,10 +304,35 @@ function ProductDetails() {
             </div>
             <div className="side-images">
               {ProductDetails?.Photos.map((img, i) => (
-                <div className="side-img" key={i}>
-                  <img src={img} alt="" />
+                <div
+                  className={
+                    img == ProductDetails.firstPhoto
+                      ? "side-img active"
+                      : "side-img"
+                  }
+                  style={{ cursor: "pointer" }}
+                  key={i}
+                  onClick={() => setFirstPhoto(i)}
+                >
+                  <img
+                    src={`https://goservback.alyoumsa.com/public/storage/${img}`}
+                    alt=""
+                  />
                 </div>
               ))}
+              {/* {sideImages.map((img, i) => (
+                <div
+                  className={
+                    img == ProductDetails.firstPhoto
+                      ? "side-img active"
+                      : "side-img"
+                  }
+                  style={{ cursor: "pointer" }}
+                  key={i}
+                >
+                  <img src={`/${img}`} alt="" />
+                </div>
+              ))} */}
             </div>
           </div>
         </div>

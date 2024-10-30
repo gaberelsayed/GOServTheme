@@ -63,11 +63,12 @@ function StaticProducts({ searchInput }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://goservback.sallaplus.com/public/api/website/products?lang=ar"
+          "https://goservback.alyoumsa.com/api/dashboard/products"
         );
-        console.log(searchInput);
+        console.log("products", response.data);
+
         if (searchInput) {
-          const results = response.data.data.filter((product) => {
+          const results = response.data.filter((product) => {
             const searchTerms = searchInput.toLowerCase().split(" ");
             return searchTerms.some((term) =>
               [
@@ -80,7 +81,7 @@ function StaticProducts({ searchInput }) {
           });
           setStaticProducts(results.slice(0, 8));
         } else {
-          setStaticProducts(response.data.data);
+          setStaticProducts(response.data);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -119,7 +120,7 @@ function StaticProducts({ searchInput }) {
             style={{ width: "200px", height: "550px", padding: "12px" }}
           >
             <img
-              src={product.image}
+              src={`https://goservback.alyoumsa.com/public/storage/${product.all_photos[0]}`}
               alt=""
               style={{
                 width: "100%",

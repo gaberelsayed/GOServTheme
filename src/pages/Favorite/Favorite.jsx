@@ -33,7 +33,7 @@ function Favorite() {
                   >
                     <div className="py-3">
                       <img
-                        src={product.image}
+                        src={`https://goservback.alyoumsa.com/public/storage/${product?.all_photos[0]}`}
                         height={100}
                         width={100}
                         alt={product.title}

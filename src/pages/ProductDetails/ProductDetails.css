@@ -10,6 +10,7 @@
   align-items: end;
   text-align: right;
   gap: 12px;
+  padding: 12px;
 }
 
 .product-details .container .left .extra-info {
@@ -157,6 +158,8 @@
 
 .product-details .right .wrapper .main-img img {
   width: 380px;
+  height: 100%;
+  object-fit: cover;
 }
 
 .product-details .right .wrapper .side-images {
@@ -175,6 +178,9 @@
   padding: 8px;
   border: 1px solid rgb(238, 231, 231);
   border-radius: 8px;
+}
+.product-details .right .wrapper .side-images .side-img.active {
+  border: 2px solid rgba(83, 81, 81, 0.692);
 }
 
 .product-details .left .colors .wrapper .active {
